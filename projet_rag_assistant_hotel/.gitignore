@@ -1,0 +1,10 @@
+.env
+.venv/
+.chroma/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+projet_04.ipynb
+image.png
+
