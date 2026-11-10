@@ -11,10 +11,13 @@ dependencies = [
     "langchain>=1.4.9",
     "langchain-openai>=1.7.4",
     "matplotlib>=3.11.2",
-    "numpy>=2.5.4",
+    "numpy>=1.26",
     "openai>=3.48.0",
     "pandas>=3.1.1",
     "pypdf>=7.0.0",
     "python-dotenv>=1.2.4",
     "scikit-learn>=1.9.1",
 ]
+
+[project.optional-dependencies]
+dev = ["pytest", "ipykernel"]
