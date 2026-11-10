@@ -1,0 +1,7 @@
+[
+  {"question": "A quelle heure ouvre la réception ?", "expected": "Horaires de la réception"},
+  {"question": "Je risque d'arriver à minuit, est-ce un problème ?", "expected": "Horaires de la réception"},
+  {"question": "Y a-t-il un spa à l'hôtel ?", "expected": "Spa et bien-être"},
+  {"question": "Proposez-vous des massages ?", "expected": "Spa et bien-être"},
+  {"question": "can i get a massage there?", "expected": "Spa et bien-être"}
+]
