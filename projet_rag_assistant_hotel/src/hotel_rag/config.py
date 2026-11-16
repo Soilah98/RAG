@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ROOT = Path(__file__).resolve().parents[2]
-DATA_DIR = ROOT / "data"
-CHROMA_DIR = ROOT / ".chroma"
+DATA_DIR = Path(os.getenv("DATA_DIR", ROOT / "data"))
+CHROMA_DIR = Path(os.getenv("CHROMA_DIR", ROOT / ".chroma"))
 COLLECTION = "hotel"
 
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")

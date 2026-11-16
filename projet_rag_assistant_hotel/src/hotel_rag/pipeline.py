@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from . import config
 from .generation import FALLBACK, build_system_prompt, condense_question
 from .llm import chat
-from .llm import chat
 from .store import Hit, search
 
 
@@ -14,6 +13,10 @@ class Answer:
     hits: list[Hit]
     refused: bool = False      # True : seuil non atteint, le LLM n'a pas été appelé
 
+    @property
+    def declined(self) -> bool:
+        """Refus par le seuil OU par le LLM : dans les deux cas, pas de sources à afficher. """
+        return self.refused or self.text.strip() == FALLBACK
 
 def chat_turn(
     question: str,

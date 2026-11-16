@@ -54,3 +54,12 @@ def search(question: str, top_k: int = config.TOP_K) -> list[Hit]:
         Hit(title=m["title"], source=m["source"], text=doc, distance=dist)
         for m, doc, dist in zip(res["metadatas"][0], res["documents"][0], res["distances"][0])
     ]
+    
+#Fonction pour contrôler la santé
+
+def count() -> int:
+    """Nombre de rubrique indexées (0 si l'index n'existe pas)."""
+    try:
+        return _client().get_collection(config.COLLECTION).count()
+    except Exception:
+        return 0
