@@ -29,7 +29,7 @@ Objectifs :
 
 | Documentation de l'API (`/docs`) | Conteneurs en fonctionnement |
 |---|---|
-![Docker Compose](capture_d'ecran/docker_compose.png) |
+|![api](capture_d'ecran/api_h.png) |![Docker Compose](capture_d'ecran/conteneur_fonctionnne.png) |
 
 ## Fonctionnalités
 
@@ -168,15 +168,13 @@ Le projet suit une règle : **on construit de la donnée vers l'interface, et ch
 | 2 | Comprendre les documents | extraction avec `pypdf` : une page = une rubrique (titre et texte) | 15 rubriques, titres corrects |
 | 3 | Baseline sans RAG | toute la documentation dans le prompt, avec les modèles locaux du notebook d'origine (Qwen2.5-0.5B-Instruct, MiniLM multilingue) | référence pour mesurer l'apport du RAG |
 | 4 | Indexer et rechercher | passage à l'API OpenAI, embeddings, index Chroma en cosinus, `top_k` | la bonne rubrique en tête sur les questions simples |
-| 5 | Évaluer la recherche | `eval/eval_set.json`, recall@k, MRR, marge de similarité, questions difficiles | baseline chiffrée (voir Résultats) |
+| 5 | Évaluer la recherche | `eval/eval_set.json`, recall@k, NDCG@k ,MRR, marge de similarité, questions difficiles | baseline chiffrée (voir Résultats) |
 | 6 | Générer avec ancrage | prompt système (rôle, documentation, consigne, phrase de refus), `temperature=0` | réponses fondées, refus hors périmètre |
 | 7 | Fiabiliser | seuil calibré (`eval/out_of_scope.json`), réécriture des questions de suivi, mémoire limitée | tableau de calibration, suivi compris |
 | 8 | Industrialiser | package `src/hotel_rag`, configuration `.env`, tests, API FastAPI, interface Streamlit, Docker Compose | `pytest` vert, `/health` OK, conteneurs sains |
 | 9 | Documenter | ce README, résultats chiffrés, limites | aucune clé dans l'historique git |
 
 ## Résultats
-
-> **TODO avant publication** : remplace chaque `TODO` par ta mesure (commande indiquée), puis supprime cette ligne. Sont déjà connus : le nombre de documents et de rubriques, le jalon initial de la recherche et l'exemple de réponse.
 
 ### Corpus
 
@@ -192,17 +190,19 @@ Jeu d'évaluation : **TODO** questions (directes, indirectes, ambiguës, autre r
 
 | Métrique | Valeur |
 |---|---|
-| recall@1 | TODO |
-| recall@2 | TODO |
+| recall@1 | 0.846 |
+| recall@2 | 0.923 |
+|recall@3 | 0.923|
 | recall@5 | TODO |
-| MRR | TODO |
-| marge de similarité moyenne | TODO |
+| MRR | 1.000 |
+|c   |      0.928|
+| marge de similarité moyenne | 0.109 |
 
 - **recall@k** : part des questions dont la bonne rubrique figure dans les `k` premiers résultats.
 - **MRR** : moyenne de l'inverse du rang de la bonne rubrique.
 - **marge** : similarité de la bonne rubrique moins celle de la meilleure autre rubrique. Elle reste informative quand le recall atteint déjà 100 %.
+**NDCG@5** : évalue la qualité globale du classement de tout ton top K, en tenant compte de la pertinence progressive des documents.
 
-Jalon initial : sur 6 questions, recall à 100 % pour tous les `k`, MRR de 1,0 et marge moyenne de 0,105. Ce jeu était trop facile pour départager deux configurations, d'où l'ajout de questions difficiles.
 
 ### Seuil de similarité
 
@@ -210,9 +210,9 @@ Commande : `python scripts/calibrate_threshold.py`.
 
 | Élément | Valeur |
 |---|---|
-| Seuil retenu | TODO |
-| Questions valides conservées | TODO |
-| Questions hors périmètre bloquées par le seuil | TODO |
+| Seuil retenu |  0.27 |
+| Questions valides conservées | 100% (d'après la sortie du script : garde 100 % des questions valides) |
+| Questions hors périmètre bloquées par le seuil |  67% |
 
 Le seuil retient 100 % des questions valides : un refus à tort coûte plus cher qu'une question hors périmètre qui passe, puisque la consigne du prompt la refuse ensuite.
 
@@ -220,8 +220,8 @@ Le seuil retient 100 % des questions valides : un refus à tort coûte plus cher
 
 | Mesure | Valeur |
 |---|---|
-| Questions valides refusées à tort | TODO / TODO |
-| Questions hors périmètre qui reçoivent une réponse inventée | TODO / TODO |
+| Questions valides refusées à tort | 0 / 13 (0%) |
+| Questions hors périmètre qui reçoivent une réponse inventée | 0 / 6 (0% - bloquées par le LLM / second filet) |
 
 ### Coût et latence
 
@@ -234,7 +234,7 @@ Nombre d'appels à l'API OpenAI par tour (déterminé par le code) :
 | refus par le seuil, première question | 1 | 0 | 0 | 1 |
 | refus par le seuil, question de suivi | 1 | 1 | 0 | 2 |
 
-Latence médiane d'une réponse : **TODO** secondes (mesure : `curl -s -o /dev/null -w '%{time_total}\n' -X POST localhost:8002/chat -H 'Content-Type: application/json' -d '{"question": "A quelle heure ouvre la réception ?"}'`).
+Latence médiane d'une réponse : **2.509** secondes (mesure : `curl -s -o /dev/null -w '%{time_total}\n' -X POST localhost:8002/chat -H 'Content-Type: application/json' -d '{"question": "A quelle heure ouvre la réception ?"}'`).
 
 ### Exemple
 
@@ -246,7 +246,6 @@ Latence médiane d'une réponse : **TODO** secondes (mesure : `curl -s -o /dev/n
 
 ### Suite de tests
 
-`pytest` : **TODO** tests, sans appel réseau.
 
 ## Tests
 
@@ -298,7 +297,7 @@ Chaque module ne dépend que de ceux qui le précèdent : `config`, `llm`, `inge
 
 Ce projet est une démonstration, pas un service prêt pour la production :
 
-- **Corpus fictif de 15 rubriques** : les résultats ne se généralisent pas à des PDF réels (colonnes, tableaux, scans, en-têtes répétés).
+- **Corpus de 15 rubriques** : les résultats ne se généralisent pas à des PDF réels (colonnes, tableaux, scans, en-têtes répétés).
 - **Jeu d'évaluation de petite taille** : les métriques donnent une tendance, pas une garantie.
 - **Authentification minimale** : une clé d'API optionnelle, pas de SSO, pas de limitation de débit.
 - **Historique côté client** et **conversations perdues au rechargement de la page** (état de session Streamlit).
@@ -318,11 +317,10 @@ Ce projet est une démonstration, pas un service prêt pour la production :
 
 ## Données et crédits
 
-> **TODO** : précise l'origine des documents (rédigés par toi ou fournis par l'atelier d'origine), la source du notebook de départ et la licence applicable. Si les PDF ne peuvent pas être publiés, retire `data/` du dépôt et décris le format attendu.
+> Origine des documents (rédigés par IA ou fournis par l'atelier d'origine) 
 
 ## Licence
 
-TODO (par exemple MIT pour le code).
 
 ## Auteur
 
