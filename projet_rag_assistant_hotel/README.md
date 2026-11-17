@@ -5,6 +5,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-API-412991)
+![Status](https://img.shields.io/badge/Status-Terminé-green)
 
 Assistant qui répond aux questions des clients d'un hôtel fictif (Le Belvédère, au bord du lac d'Annecy) **uniquement à partir de sa documentation** (5 PDF). Il cite ses sources, comprend les questions de suivi et répond « Je ne sais pas » quand l'information ne figure pas dans les documents.
 
