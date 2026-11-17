@@ -182,20 +182,20 @@ Le projet suit une règle : **on construit de la donnée vers l'interface, et ch
 |---|---|
 | Documents | 5 PDF |
 | Rubriques indexées | 15 |
-| Longueur des rubriques (mots, min / médiane / max) | TODO |
+
 
 ### Qualité de la recherche
 
-Jeu d'évaluation : **TODO** questions (directes, indirectes, ambiguës, autre registre ou autre langue). Commande : `python scripts/evaluate.py`.
+Jeu d'évaluation : **13** questions (directes, indirectes, ambiguës, autre registre ou autre langue). Commande : `python scripts/evaluate.py`.
 
 | Métrique | Valeur |
 |---|---|
 | recall@1 | 0.846 |
 | recall@2 | 0.923 |
 |recall@3 | 0.923|
-| recall@5 | TODO |
-| MRR | 1.000 |
-|c   |      0.928|
+| recall@5 | 1.000 |
+| MRR | 0.904 |
+|NDCG@5 | 0.928|
 | marge de similarité moyenne | 0.109 |
 
 - **recall@k** : part des questions dont la bonne rubrique figure dans les `k` premiers résultats.
