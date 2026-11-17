@@ -399,7 +399,7 @@ if not messages and not question:
 
 
 # ============================================================
-# ERREUR PRÉCÉDENTE : on garde la question et on propose de la relancer
+#  on garde la question et on propose de la relancer
 # ============================================================
 
 if st.session_state.last_error and not question:
