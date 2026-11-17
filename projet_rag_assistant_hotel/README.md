@@ -8,9 +8,7 @@
 
 Assistant qui répond aux questions des clients d'un hôtel fictif (Le Belvédère, au bord du lac d'Annecy) **uniquement à partir de sa documentation** (5 PDF). Il cite ses sources, comprend les questions de suivi et répond « Je ne sais pas » quand l'information ne figure pas dans les documents.
 
-![Interface de l'assistant](docs/screenshots/01-accueil.png)
-
-## Contexte
+![Interface de l'assistant](capture_d'ecran/interface.png)
 
 Un hôtel reçoit chaque jour les mêmes questions : horaires de la réception, tarifs des chambres, accès au spa, animaux acceptés, activités. Les réponses existent, mais dispersées dans plusieurs documents. Confier ces questions à un LLM seul poserait un vrai problème : il répond avec aplomb, y compris quand il invente un prix ou un horaire.
 
@@ -27,11 +25,11 @@ Objectifs :
 
 | Réponse avec sources | Refus hors périmètre |
 |---|---|
-| ![Réponse avec sources](docs/screenshots/02-reponse-sources.png) | ![Refus hors périmètre](docs/screenshots/03-refus-hors-perimetre.png) |
+| ![Réponse avec sources](capture_d'ecran/cite_source.png) | ![Refus hors périmètre](capture_d'ecran/refus.png) |
 
 | Documentation de l'API (`/docs`) | Conteneurs en fonctionnement |
 |---|---|
-| ![Documentation de l'API](docs/screenshots/04-api-docs.png) | ![Docker Compose](docs/screenshots/05-docker.png) |
+![Docker Compose](capture_d'ecran/docker_compose.png) |
 
 ## Fonctionnalités
 
@@ -119,7 +117,7 @@ docker compose run --rm api python scripts/ingest.py             # construit l'i
 docker compose restart api                                        # l'API relit l'index
 ```
 
-- Interface : <http://localhost:8501>
+- Interface : <http://localhost:8503/>
 - API et documentation interactive : <http://localhost:8002/docs>
 
 Les ports publiés se modifient dans `docker-compose.yml`. Ne publie pas l'API sur Internet sans authentification : chaque requête consomme des appels OpenAI.
