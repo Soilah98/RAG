@@ -1,7 +1,54 @@
 [
-  {"question": "A quelle heure ouvre la réception ?", "expected": "Horaires de la réception"},
-  {"question": "Je risque d'arriver à minuit, est-ce un problème ?", "expected": "Horaires de la réception"},
-  {"question": "Y a-t-il un spa à l'hôtel ?", "expected": "Spa et bien-être"},
-  {"question": "Proposez-vous des massages ?", "expected": "Spa et bien-être"},
-  {"question": "can i get a massage there?", "expected": "Spa et bien-être"}
+  {
+    "question": "A quelle heure ouvre la réception ?",
+    "expected": "Horaires de la réception"
+  },
+  {
+    "question": "Je risque d'arriver à minuit, est-ce un problème ?",
+    "expected": "Horaires de la réception"
+  },
+  {
+    "question": "Quel est le tarif du parking de l'hôtel et combien y a-t-il de places ?",
+    "expected": "Parking et navette"
+  },
+  {
+    "question": "Quel est le nom du réseau wifi et son débit ?",
+    "expected": "Wifi et connexion internet"
+  },
+  {
+    "question": "Je viens en Tesla, puis-je recharger ma batterie sur place sans supplément ?",
+    "expected": "Parking et navette"
+  },
+  {
+    "question": "J'ai une chemise froissée pour ma réunion de demain matin, que proposez-vous ?",
+    "expected": "Blanchisserie et services annexes"
+  },
+  {
+    "question": "J'ai un MacBook Pro 16 pouces, est-il en sécurité si je le laisse dans ma chambre ?",
+    "expected": "Blanchisserie et services annexes"
+  },
+  {
+    "question": "Je dépose mes vêtements au pressing dimanche matin à 8h, je les récupère le soir même ?",
+    "expected": "Blanchisserie et services annexes"
+  },
+  {
+    "question": "Yo, y'a moyen de gratter un peu de temps le matin avant de rendre les clés ?",
+    "expected": "Horaires de la réception"
+  },
+  {
+    "question": "Ça rame grave dans ma chambre, vous avez un truc pour capter mieux ?",
+    "expected": "Wifi et connexion internet"
+  },
+  {
+    "question": "Serait-il envisageable de bénéficier d'un acheminement gracieux depuis la gare ferroviaire ?",
+    "expected": "Parking et navette"
+  },
+  {
+    "question": "Is there any public transportation nearby if I don't book the hotel shuttle?",
+    "expected": "Parking et navette"
+  },
+  {
+    "question": "Who do I call if I have an emergency at 3 AM when the front desk is closed?",
+    "expected": "Horaires de la réception"
+  }
 ]
